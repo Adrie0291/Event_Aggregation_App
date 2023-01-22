@@ -13,9 +13,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Slf4j
 @Service
@@ -153,7 +157,8 @@ public class EventService {
     }
 
     public Event signUpForEvent(User user, Long eventId) {
-        Event event = this.findByIdFetchOwnerFetchUsersFetchImage(eventId);
+        canSignUpForEvent(user, eventId);
+        Event event = findByIdFetchOwnerFetchUsersFetchImage(eventId);
         if (event.getStartingDateTime().isAfter(LocalDateTime.now())) {
             event.getUsers().add(user);
             repository.save(event);
@@ -162,7 +167,8 @@ public class EventService {
     }
 
     public Event signOutFromEvent(User user, Long eventId) {
-        Event event = this.findByIdFetchOwnerFetchUsersFetchImage(eventId);
+        canSignOutFromEvent(user, eventId);
+        Event event = findByIdFetchOwnerFetchUsersFetchImage(eventId);
         if (event.getStartingDateTime().isAfter(LocalDateTime.now())) {
             event.getUsers().remove(user);
             repository.save(event);
@@ -245,5 +251,28 @@ public class EventService {
                         repository.findAllFutureEvents()
                 )
         );
+    }
+    private void canSignUpForEvent(User user, Long eventId) {
+        if (findByIdFetchOwnerFetchUsersFetchImage(eventId).getOwner().getUsername().equals(user.getUsername())) {
+            throw new ResponseStatusException(FORBIDDEN, "ACCESS DENIED - OWNER CANNOT SIGN UP FOR AN EVENT");
+        }
+        if (findByIdFetchOwnerFetchUsersFetchImage(eventId).getStartingDateTime().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN UP FOR AN EVENT THAT HAS ALREADY STARTED");
+        }
+        if (findByIdFetchOwnerFetchUsersFetchImage(eventId).getUsers().contains(user)) {
+            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN UP FOR AN EVENT IF ALREADY ASSIGNED");
+        }
+    }
+
+    private void canSignOutFromEvent(User user, Long eventId) {
+        if (findByIdFetchOwnerFetchUsersFetchImage(eventId).getOwner().getUsername().equals(user.getUsername())) {
+            throw new ResponseStatusException(FORBIDDEN, "ACCESS DENIED - OWNER CANNOT SIGN OUT FROM AN EVENT");
+        }
+        if (findByIdFetchOwnerFetchUsersFetchImage(eventId).getStartingDateTime().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN OUT FROM AN EVENT THAT HAS ALREADY STARTED");
+        }
+        if (!findByIdFetchOwnerFetchUsersFetchImage(eventId).getUsers().contains(user)) {
+            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN OUT FROM AN EVENT IF HAS NOT ASSIGNED");
+        }
     }
 }
