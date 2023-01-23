@@ -24,5 +24,6 @@ Configuration
 
 8. Admin passy in main APP:
 
-login: admin@eventapp.com
-password: password
+   login: admin@eventapp.com
+
+   password: password
