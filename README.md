@@ -4,6 +4,7 @@ Configuration
 2. Install MySQLWorkbench
 
 2a. Create two schemas: 
+
    first schema name: event_aggregation_app_db
    second schema name: event_aggregation_app_db_test
 
