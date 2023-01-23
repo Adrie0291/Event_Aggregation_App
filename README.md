@@ -16,9 +16,11 @@ Configuration
 6. After starting the program (main APP):
 
 address homepage: http://localhost:8080/home
+
 7. Client APP: 
 
 address homepage: http://localhost:8888/home
+
 8. Admin passy in main APP:
 
 login: admin@eventapp.com
