@@ -1,29 +1,46 @@
-# Event_Aggregation_App
-Configuration
-1. Install IntelliJ IDEA Ultimate.
-2. Install MySQL Workbench
-3. Create two schemas: 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/vp6ZNRK.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://i.imgur.com/Lp5HZ3i.png">
+  <img alt="Application logo">
+</picture>
 
-   first schema name: event_aggregation_app_db
+-----
 
-   second schema name: event_aggregation_app_db_test
-4. Create user in database: 
+This project is a platform that allows users to create, discover and participate in events created by the members of community.
 
-    login: agg_event_user
+### Core features:
+- User registration and login
+- Event filtering by past, present and future ones (combinable)
+- Event creation with optional uploaded image
+- Sign-up and sign-out for/from events
+- Commenting on events
+- My Events page allowing to manage owned and attended events
+- REST API for all future events and filtered by dates
+- Thymeleaf frontend
 
-    password: ZAQ!2wsx
-5. Grant schemas permissions to the created user
+### Tools used to create project:
+- IntelliJ IDEA Ultimate
+- MySQL Workbench
+- Github
+- Git
+- Trello
 
-6. After starting the program (main APP):
+## How to install
+- Run your favourite IDE
+- Prepare MySQL Workbench with
+  - One main database
+    - Database name: `event_aggregation_app_db`
+  - One test database
+    - Database name: `event_aggregation_app_db_test`
+  - One user
+    - Username: `agg_event_user`
+    - Password: `ZAQ!2wsx`
+    - Grant user all permissions to above databases
+    ![permission screenshot](https://i.imgur.com/Rqd6ooI.png)
+  - All above parameters can be changed in `application.properties` and/or `application-test.properties`. 
+- Open your project in IDE and run it
+- By default app will be available under this URL: [localhost:8080/home](http://localhost:8080/home)
 
-   address homepage: http://localhost:8080/home
+## Honorable mentions
 
-7. Client APP: 
-
-   address homepage: http://localhost:8888/home
-
-8. Admin passy in main APP:
-
-   login: admin@eventapp.com
-
-   password: password
+Project created with [@degorskiprzemyslaw](https://github.com/degorskiprzemyslaw) and [@Adrie0291](https://github.com/Adrie0291) 
