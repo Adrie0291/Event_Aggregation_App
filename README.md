@@ -10,6 +10,7 @@ Configuration
 4. Create user in database: 
 
     login: agg_event_user
+
     password: ZAQ!2wsx
 5. Grant schemas permissions to the created user
 
