@@ -3,6 +3,7 @@ Configuration
 1. Install IntelliJ IDEA Ultimate.
 2. Install MySQL Workbench
 3. Create two schemas: 
+
    first schema name: event_aggregation_app_db
    second schema name: event_aggregation_app_db_test
 4. Create user in database: 
