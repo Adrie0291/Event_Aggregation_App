@@ -45,7 +45,6 @@ public class EventController {
         return "create-event";
     }
 
-    // TODO #005: Maybe MultipartFile parameter can have some annotation to valid it? Ex. valid file extension.
     // If we'll choose to do so, we can handle file extension error via if (errors.hasErrors()), I think.
     @PostMapping("/create")
     public String handleCreate(@ModelAttribute("event") @Valid EventForm form, Errors errors,

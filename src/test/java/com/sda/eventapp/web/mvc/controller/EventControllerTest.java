@@ -44,7 +44,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EventControllerTest {
     @Autowired
     UserRepository userRepository;
-    //todo #001 should assertion validation be in different methods?
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     @Autowired
     private EventRepository eventRepository;
@@ -123,7 +122,7 @@ class EventControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/my-events"));
 
-        //todo#001
+
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations).isEmpty();
     }
@@ -149,7 +148,7 @@ class EventControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/my-events"));
 
-        //todo#001
+
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations).isEmpty();
     }
@@ -197,7 +196,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setStartingDateTime(testEventForm.getStartingDateTime().minusDays(45));
         testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().minusDays(45));
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
@@ -228,7 +227,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().minusDays(4));
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -258,7 +257,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().plusDays(13));
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -288,7 +287,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setTitle(null);
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -318,7 +317,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setTitle("");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -348,7 +347,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setTitle("    ");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -378,7 +377,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setDescription(null);
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -408,7 +407,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setDescription("");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -439,7 +438,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setDescription(" ");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -470,7 +469,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setDescription("                    ");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -500,7 +499,7 @@ class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-event"));
 
-        //todo#001
+
         testEventForm.setDescription("19-characters-test-");
         Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
         assertThat(violations.stream()
@@ -537,7 +536,7 @@ class EventControllerTest {
             mockMvc
                     .perform(MockMvcRequestBuilders.get("/event/update/{id}", testEventToUpdate.getId())
                             .with(user(userRepository.findById(testUser1.getId())
-                                    .orElseThrow(() -> new RuntimeException(EXCEPTION_MESSAGE))))) //todo optional handling?
+                                    .orElseThrow(() -> new RuntimeException(EXCEPTION_MESSAGE)))))
                     .andExpect(view().name("update-event"))
                     .andExpect(model().attributeExists("event"))
                     .andExpect(model().attributeExists("eventImage"))
@@ -633,7 +632,7 @@ class EventControllerTest {
                     .andExpect(status().is3xxRedirection())
                     .andExpect(redirectedUrl("/my-events"));
 
-            //todo#001
+
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations).isEmpty();
         }
@@ -661,7 +660,7 @@ class EventControllerTest {
                     .andExpect(status().is3xxRedirection())
                     .andExpect(redirectedUrl("/my-events"));
 
-            //todo#001
+
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations).isEmpty();
         }
@@ -713,7 +712,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setStartingDateTime(testEventForm.getStartingDateTime().minusDays(45));
             testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().minusDays(45));
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
@@ -747,7 +746,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().minusDays(4));
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -779,7 +778,6 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
             testEventForm.setEndingDateTime(testEventForm.getEndingDateTime().plusDays(13));
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -811,7 +809,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setTitle(null);
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -843,7 +841,6 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
             testEventForm.setTitle("");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -875,7 +872,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setTitle("    ");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -907,7 +904,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setDescription(null);
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -939,7 +936,6 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
             testEventForm.setDescription("");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -972,7 +968,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setDescription(" ");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -1005,7 +1001,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setDescription("                    ");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()
@@ -1037,7 +1033,7 @@ class EventControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(view().name("update-event"));
 
-            //todo#001
+
             testEventForm.setDescription("19-characters-test-");
             Set<ConstraintViolation<EventForm>> violations = validator.validate(testEventForm);
             assertThat(violations.stream()

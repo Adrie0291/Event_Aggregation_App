@@ -299,10 +299,7 @@ class EventDetailControllerTest {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection());
 
-        //todo#002
-        //for positive scenario this part of test is redundant (there is no flash().attributeDoesNotExist() method.
-        //That is why I added assertJ test
-        //todo should it be made as an isolated unit test?
+
         CreateCommentForm cfm = new CreateCommentForm();
         cfm.setText(COMMENT_WITH_500_CHARACTERS);
         Set<ConstraintViolation<CreateCommentForm>> violations = validator.validate(cfm);
@@ -326,7 +323,6 @@ class EventDetailControllerTest {
                 .andExpect(flash().attribute("commentErrors", List.of("Comment cannot be empty")))
                 .andExpect(status().is3xxRedirection());
 
-        //todo #002 should it be made as an isolated unit test?
         CreateCommentForm cfm = new CreateCommentForm();
         cfm.setText(BLANK_COMMENT);
         Set<ConstraintViolation<CreateCommentForm>> violations = validator.validate(cfm);
@@ -354,7 +350,6 @@ class EventDetailControllerTest {
                         List.of("Comment cannot have more than 500 characters")))
                 .andExpect(status().is3xxRedirection());
 
-        //todo#002 should it be made as an isolated unit test?
         CreateCommentForm cfm = new CreateCommentForm();
         cfm.setText(COMMENT_WITH_501_CHARACTERS);
         Set<ConstraintViolation<CreateCommentForm>> violations = validator.validate(cfm);

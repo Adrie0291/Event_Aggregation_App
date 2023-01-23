@@ -43,8 +43,7 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     private User testUser;
-    //todo #001 description line 76
-    //private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
     @Autowired
     private UserRepository userRepository;
 
@@ -74,16 +73,6 @@ class UserControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern("/home/**"));
 
-        //todo #001 there is a problem with instantiating custom
-        // validation annotation (maybe because of connecting with db?)
-//        CreateUserForm cum = new CreateUserForm();
-//        cum.setUsername("create-test-user2");
-//        cum.setEmail("createtestuser2@gmail.com");
-//        cum.setPassword("test-password");
-//        cum.setConfirmPassword("test-password");
-//
-//        Set<ConstraintViolation<CreateUserForm>> violations = validator.validate(cum);
-//        assertThat(violations).isEmpty();
     }
 
     @Test
@@ -98,7 +87,7 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-user"));
 
-        //todo #001
+
     }
 
     @Nested

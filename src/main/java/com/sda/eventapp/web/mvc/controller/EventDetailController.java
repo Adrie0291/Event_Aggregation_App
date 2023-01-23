@@ -53,7 +53,6 @@ public class EventDetailController {
     public String addComment(@ModelAttribute("comment") @Valid CreateCommentForm form, Errors errors, @PathVariable("id") Long eventid, RedirectAttributes ra) {
         User loggedUser = (User) authenticationFacade.getAuthentication().getPrincipal();
 
-        //todo trello reminder #002
         if (errors.hasErrors()) {
             ra.addFlashAttribute(
                     "commentErrors",
