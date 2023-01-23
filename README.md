@@ -6,6 +6,7 @@ Configuration
 2a. Create two schemas: 
 
    first schema name: event_aggregation_app_db
+
    second schema name: event_aggregation_app_db_test
 
 3. Create user in database: 
