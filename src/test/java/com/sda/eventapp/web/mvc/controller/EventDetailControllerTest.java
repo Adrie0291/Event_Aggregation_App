@@ -178,7 +178,7 @@ class EventDetailControllerTest {
                         .with(user(userRepository.findById(testUser2.getId())
                                 .orElseThrow(() -> new RuntimeException(EXCEPTION_MESSAGE)))))
                 .andExpect(status().isBadRequest())
-                .andExpect(status().reason("ACCESS DENIED - CANNOT SIGNUP FOR AN EVENT IF ALREADY ASSIGNED"));
+                .andExpect(status().reason("ACCESS DENIED - CANNOT SIGN UP FOR AN EVENT IF ALREADY ASSIGNED"));
     }
 
     @Test
@@ -239,7 +239,7 @@ class EventDetailControllerTest {
                         .with(user(userRepository.findById(testUser2.getId())
                                 .orElseThrow(() -> new RuntimeException(EXCEPTION_MESSAGE)))))
                 .andExpect(status().isBadRequest())
-                .andExpect(status().reason("ACCESS DENIED - CANNOT SIGNUP OUT FROM AN EVENT IF HAS NOT ASSIGNED"));
+                .andExpect(status().reason("ACCESS DENIED - CANNOT SIGN OUT FROM AN EVENT IF HAS NOT ASSIGNED"));
     }
 
     @Test

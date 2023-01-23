@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -64,39 +65,14 @@ public class EventDetailController {
     }
 
     @PostMapping("/{id}/sign-up-for-event")
-    public String signupForEvent(@PathVariable("id") Long eventId) {
-        User loggedUser = (User) authenticationFacade.getAuthentication().getPrincipal();
-
-        if (eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getOwner().getUsername().equals(loggedUser.getUsername())) {
-            throw new ResponseStatusException(FORBIDDEN, "ACCESS DENIED - OWNER CANNOT SIGN UP FOR AN EVENT");
-        }
-        if (eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getStartingDateTime().isBefore(LocalDateTime.now())) {
-            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN UP FOR AN EVENT THAT HAS ALREADY STARTED");
-        }
-        if (eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getUsers().contains(loggedUser)) {
-            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGNUP FOR AN EVENT IF ALREADY ASSIGNED");
-        }
-        eventService.signUpForEvent(loggedUser, eventId);
-
+    public String signupForEvent(@AuthenticationPrincipal User user, @PathVariable("id") Long eventId) {
+        eventService.signUpForEvent(user, eventId);
         return "redirect:/detail-view/" + eventId;
     }
 
     @PostMapping("/{id}/sign-out-from-event")
-    public String signOutFromEvent(@PathVariable("id") Long eventId) {
-        User loggedUser = (User) authenticationFacade.getAuthentication().getPrincipal();
-
-        if (eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getOwner().getUsername().equals(loggedUser.getUsername())) {
-            throw new ResponseStatusException(FORBIDDEN, "ACCESS DENIED - OWNER CANNOT SIGN OUT FROM AN EVENT");
-        }
-        if (eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getStartingDateTime().isBefore(LocalDateTime.now())) {
-            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGN OUT FROM AN EVENT THAT HAS ALREADY STARTED");
-        }
-        if (!eventService.findByIdFetchOwnerFetchUsersFetchImage(eventId).getUsers().contains(loggedUser)) {
-            throw new ResponseStatusException(BAD_REQUEST, "ACCESS DENIED - CANNOT SIGNUP OUT FROM AN EVENT IF HAS NOT ASSIGNED");
-        }
-
-        eventService.signOutFromEvent(loggedUser, eventId);
-
+    public String signOutFromEvent(@AuthenticationPrincipal User user, @PathVariable("id") Long eventId) {
+        eventService.signOutFromEvent(user, eventId);
         return "redirect:/detail-view/" + eventId;
     }
 }

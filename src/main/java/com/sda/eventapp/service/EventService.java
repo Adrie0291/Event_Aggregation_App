@@ -66,6 +66,15 @@ public class EventService {
                 .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
     }
 
+
+    public List<EventView> findAllEventViews(String title, boolean futureEventsFilter, boolean ongoingEventsFilter, boolean pastEventsFilter) {
+        if (title == null || title.equals("") || title.isBlank()) {
+            return mapper.toEventViewList(findAllWithFilters(futureEventsFilter, ongoingEventsFilter, pastEventsFilter));
+        } else {
+            return mapper.toEventViewList(findAllWithFilters(title, futureEventsFilter, ongoingEventsFilter, pastEventsFilter));
+        }
+    }
+
     private List<Event> findAllWithFilters(boolean futureEventsFilter, boolean ongoingEventsFilter, boolean pastEventsFilter) {
         //future
         if (futureEventsFilter && !ongoingEventsFilter && !pastEventsFilter) {
@@ -133,13 +142,7 @@ public class EventService {
         return mapper.toEventView(this.findByIdFetchOwnerFetchUsersFetchImage(id));
     }
 
-    public List<EventView> findAllEventViews(String title, boolean futureEventsFilter, boolean ongoingEventsFilter, boolean pastEventsFilter) {
-        if (title == null || title.equals("") || title.isBlank()) {
-            return mapper.toEventViewList(findAllWithFilters(futureEventsFilter, ongoingEventsFilter, pastEventsFilter));
-        } else {
-            return mapper.toEventViewList(findAllWithFilters(title, futureEventsFilter, ongoingEventsFilter, pastEventsFilter));
-        }
-    }
+
 
     public EventApiWrapper getEventApiWrapperWithEventsInDateRange(LocalDateTime start, LocalDateTime end) {
         return new EventApiWrapper(
