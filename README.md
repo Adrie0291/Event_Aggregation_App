@@ -43,4 +43,4 @@ This project is a platform that allows users to create, discover and participate
 
 ## Honorable mentions
 
-Project created with [@degorskiprzemyslaw](https://github.com/degorskiprzemyslaw) and [@JasinskiSz](https://github.com/JasinskiSz)) 
+Project created with [@degorskiprzemyslaw](https://github.com/degorskiprzemyslaw) and [@JasinskiSz](https://github.com/JasinskiSz)
