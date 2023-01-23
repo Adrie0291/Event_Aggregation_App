@@ -5,6 +5,7 @@ Configuration
 3. Create two schemas: 
 
    first schema name: event_aggregation_app_db
+
    second schema name: event_aggregation_app_db_test
 4. Create user in database: 
     login: agg_event_user
