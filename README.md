@@ -8,10 +8,11 @@ Configuration
 
    second schema name: event_aggregation_app_db_test
 4. Create user in database: 
+
     login: agg_event_user
     password: ZAQ!2wsx
 5. Grant schemas permissions to the created user
-6After starting the program (main APP):
+6. After starting the program (main APP):
 address homepage: http://localhost:8080/home
-7Client APP: 
+7. Client APP: 
 address homepage: http://localhost:8888/home
