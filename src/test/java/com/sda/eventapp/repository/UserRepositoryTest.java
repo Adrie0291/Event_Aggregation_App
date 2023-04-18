@@ -26,6 +26,15 @@ class UserRepositoryTest {
     private User testUser1;
     private User testUser2;
 
+
+
+    @AfterEach
+    void deleteTestDataFromDatabase() {
+        commentRepository.deleteAll();
+        imageRepository.deleteAll();
+        eventRepository.deleteAll();
+        userRepository.deleteAll();
+    }
     @BeforeEach
     void prepareTestData() {
         testUser1 = User.builder()
@@ -40,14 +49,6 @@ class UserRepositoryTest {
                 .build();
         userRepository.save(testUser1);
         userRepository.save(testUser2);
-    }
-
-    @AfterEach
-    void deleteTestDataFromDatabase() {
-        commentRepository.deleteAll();
-        imageRepository.deleteAll();
-        eventRepository.deleteAll();
-        userRepository.deleteAll();
     }
 
     @Test
